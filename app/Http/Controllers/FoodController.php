@@ -2,23 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\FoodCategoryEnum;
 use App\Http\Requests\Food\FoodRequest;
 use App\Models\Food;
-use App\Models\Restaurant;
 use App\Services\Food\FoodCreateService;
 use App\Services\Food\FoodDeleteService;
+use App\Services\Food\FoodSearchService;
 use App\Services\Food\FoodUpdateService;
+use App\Traits\HandlesFilters;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\Response;
 
-final readonly class FoodController
+final class FoodController
 {
-    public function index(): JsonResponse
+    use HandlesFilters;
+
+    public function __construct(
+        private readonly FoodSearchService $searchservice
+    ) {
+        $this->setAllowedFilters(['id', 'nome']);
+    }
+
+    public function index(Request $request): JsonResponse
     {
-        return response()->json('OK');
+        $filters = $this->extractFiltersFrom($request);
+        $orders  = $this->extractOrdersFrom($request);
+
+        $foods = $this->searchservice->execute($filters, $orders);
+        return response()->json($foods);
     }
 
     public function store(
