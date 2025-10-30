@@ -35,7 +35,7 @@ final class FoodControllerTest extends TestCase
         $response->assertOk();
         $response->assertJsonStructure([
             'data' => [
-                0 => ['id', 'nome', 'categoria', 'image']
+                0 => ['id', 'nome', 'categoria', 'image', 'average_rate', 'count_rate']
             ]
         ]);
     }
