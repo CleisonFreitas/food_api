@@ -2,12 +2,12 @@
 
 namespace App\Support;
 
-use App\Models\Client;
+use App\Models\Cliente;
 use Illuminate\Support\Str;
 
 class Helper
 {
-    public static function registerNewToken(Client $cliente): array
+    public static function registerNewToken(Cliente $cliente): array
     {
         $chaveToken = Str::snake($cliente->nome) . now()->format('d_m_Y');
         $token = $cliente->createToken(

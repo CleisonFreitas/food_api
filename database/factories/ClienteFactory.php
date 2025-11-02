@@ -2,14 +2,14 @@
 
 namespace Database\Factories;
 
-use App\Models\Client;
+use App\Models\Cliente;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 
 /**
- * @extends Factory<Client>
+ * @extends Factory<Cliente>
  */
-class ClientFactory extends Factory
+class ClienteFactory extends Factory
 {
     public function definition(): array
     {

@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
-class RateControl extends Model
+class Avaliacao extends Model
 {
-    protected $table = 'rate_control';
+    protected $table = 'avaliacoes';
 
     protected $fillable = [
-        'rate',
-        'client_id',
+        'nota',
+        'cliente_id',
     ];
 
     protected $casts = [
-        'rate' => 'float'
+        'nota' => 'float'
     ];
 
     public function model(): MorphTo

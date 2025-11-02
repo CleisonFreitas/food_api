@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Services\Client\Auth;
 
-use App\Models\Client;
+use App\Models\Cliente;
 use App\Support\Helper;
 use Exception;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class LoginService
 {
@@ -23,7 +22,7 @@ class LoginService
     {
         $email = data_get($dados, 'email');
         $senha = data_get($dados, 'senha');
-        $cliente = Client::where('email', $email)->first();
+        $cliente = Cliente::where('email', $email)->first();
         if (!$cliente || Hash::check($senha, $cliente->senha)) {
             throw new Exception('Credenciais incorretas! Tente novamente.');
         }

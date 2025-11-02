@@ -6,13 +6,13 @@ namespace App\Services\Food;
 
 use App\Dtos\Food\FoodDto;
 use App\Facades\RegisterSaveFacade;
-use App\Models\Food;
+use App\Models\Prato;
 
 class FoodUpdateService
 {
-    public function execute(Food $food, array $dados): Food
+    public function execute(Prato $prato, array $dados): Prato
     {
         $dto = FoodDto::fromArray($dados);
-        return RegisterSaveFacade::create($food, $dto);
+        return RegisterSaveFacade::create($prato, $dto);
     }
 }

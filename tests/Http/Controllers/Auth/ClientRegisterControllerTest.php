@@ -13,7 +13,7 @@ final class ClientRegisterControllerTest extends TestCase
     #[Test]
     public function register(): void
     {
-        $senha = $this->faker->password;
+        $senha = $this->faker->sentence(8);
         $data = [
             'nome' => $this->faker->name,
             'email' => $this->faker->email,

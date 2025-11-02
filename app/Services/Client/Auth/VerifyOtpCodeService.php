@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace App\Services\Client\Auth;
 
-use App\Models\Client;
-use App\Models\ClientOTP;
+use App\Models\ClienteOTP;
 use Exception;
 
 class VerifyOtpCodeService
 {
     public function execute(string $code): void
     {
-        $optCode = ClientOTP::whereCodigo($code)
+        $optCode = ClienteOTP::whereCodigo($code)
             ->whereDate('ativo_ate', '>=', now()
         )->first();
 

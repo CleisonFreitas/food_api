@@ -1,27 +1,25 @@
 <?php
 
+use App\Http\Controllers\AvaliacaoController;
 use App\Http\Controllers\FoodController;
-use App\Http\Controllers\RateController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::prefix('food')
+    Route::prefix('prato')
         ->controller(FoodController::class)
         ->group(function ($router) {
             $router->get('/', 'index');
             $router->post('/', 'store');
-            $router->get('/{food}', 'show');
-            $router->put('/{food}', 'update');
-            $router->delete('/{food}', 'destroy');
-        });
-
-    
+            $router->get('/{prato}', 'show');
+            $router->put('/{prato}', 'update');
+            $router->delete('/{prato}', 'destroy');
+        }); 
 });
 
-Route::prefix('rate')
-        ->controller(RateController::class)
+Route::prefix('avaliacao')
+        ->controller(AvaliacaoController::class)
         ->group(function ($router) {
-            $router->match(['POST', 'PUT'], 'update', 'rateUpdate');
+            $router->match(['POST', 'PUT'], 'update', 'update');
         });
 
 require __DIR__ . '/auth.php';

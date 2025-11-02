@@ -2,21 +2,25 @@
 
 namespace App\Models;
 
-use App\Enums\RestaurantSegmentEnum;
+use App\Enums\FoodCategoryEnum;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Restaurant extends Model
+class Prato extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'restaurantes';
+    protected $table = 'pratos';
     protected $fillable = [
         'nome',
-        'segmento',
+        'valor',
+        'categoria',
+        'image',
+        'estabelecimento_id',
     ];
 
     protected $appends = [
@@ -25,25 +29,31 @@ class Restaurant extends Model
     ];
 
     protected $casts = [
-        'segmento' => RestaurantSegmentEnum::class
+        'image' => 'string',
+        'categoria' => FoodCategoryEnum::class,
     ];
 
-    public function rates(): MorphMany
+    public function estabelecimento(): BelongsTo
     {
-        return $this->morphMany(RateControl::class, 'model');
+        return $this->belongsTo(Estabelecimento::class, 'estabelecimento_id');
+    }
+
+    public function avaliacoes(): MorphMany
+    {
+        return $this->morphMany(Avaliacao::class, 'model');
     }
 
     public function averageRate(): Attribute
     {
         return Attribute::make(
-            get: fn () => round($this->rates()->avg('rate') ?? 0, 1)
+            get: fn () => round($this->avaliacoes()->avg('nota') ?? 0, 1)
         );
     }
 
     public function countRate(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->rates->count() ?? 0
+            get: fn () => $this->avaliacoes->count() ?? 0
         );
     }
 }

@@ -3,8 +3,8 @@
 namespace App\Services\Rate;
 
 use App\Enums\RateMorphEnum;
-use App\Models\Food;
-use App\Models\Restaurant;
+use App\Models\Estabelecimento;
+use App\Models\Prato;
 
 class RateService
 {
@@ -14,11 +14,11 @@ class RateService
         $modelClass = $this->resolveModelClass($dados['model_type']);
 
         $model = $modelClass::findOrFail($dados['model_id']);
-        $rate = $dados['rate'];
+        $rate = $dados['nota'];
 
-        $model->rates()->updateOrCreate(
-            ['client_id' => $clientId],
-            ['rate' => $rate]
+        $model->avaliacoes()->updateOrCreate(
+            ['cliente_id' => $clientId],
+            ['nota' => $rate]
         );
         return [
             'message' => 'Rate created successfully.',
@@ -30,8 +30,8 @@ class RateService
     private function resolveModelClass(string $type): string
     {
         return match ($type) {
-            RateMorphEnum::RESTAURANT->description() => Restaurant::class,
-            RateMorphEnum::FOOD->description() => Food::class,
+            RateMorphEnum::ESTABELECIMENTO->description() => Estabelecimento::class,
+            RateMorphEnum::PRATO->description() => Prato::class,
             default => throw new \InvalidArgumentException('Objeto informado não avaliável')
         };
     }
