@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Services\Food;
 
-use App\Models\Food;
+use App\Models\Prato;
 
 class FoodDeleteService
 {
-    public function execute(Food $food): Food
+    public function execute(Prato $prato): Prato
     {
-        $food->delete();
-        return $food->refresh();
+        $prato->delete();
+        return $prato->refresh();
     }
 }

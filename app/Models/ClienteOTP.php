@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class ClientOTP extends Model
+class ClienteOTP extends Model
 {
     use HasFactory;
 
@@ -25,6 +25,6 @@ class ClientOTP extends Model
 
     public function cliente(): BelongsTo
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Cliente::class);
     }
 }

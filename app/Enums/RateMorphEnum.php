@@ -7,14 +7,14 @@ namespace App\Enums;
  */
 enum RateMorphEnum: string
 {
-    case RESTAURANT = 'RESTAURANT';
-    case FOOD = 'FOOD';
+    case ESTABELECIMENTO = 'ESTABELECIMENTO';
+    case PRATO = 'PRATO';
 
     public function description(): string
     {
         return match($this) {
-            self::RESTAURANT => 'restaurant',
-            self::FOOD => 'food',
+            self::ESTABELECIMENTO => 'estabelecimento',
+            self::PRATO => 'prato',
         };
     }
 

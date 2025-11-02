@@ -3,21 +3,21 @@
 namespace Tests\Http\Controllers\Rate;
 
 use App\Enums\RateMorphEnum;
-use App\Models\Client;
-use App\Models\Food;
-use App\Models\Restaurant;
+use App\Models\Cliente;
+use App\Models\Estabelecimento;
+use App\Models\Prato;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Sanctum\Sanctum;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-final class RateControllerTest extends TestCase
+final class AvaliacaoControllerTest extends TestCase
 {
     #[Test]
     public function rate_update_restaurant(): void
     {
-        $modelo = Restaurant::factory()->create();
-        $rateEnum = RateMorphEnum::RESTAURANT;
+        $modelo = Estabelecimento::factory()->create();
+        $rateEnum = RateMorphEnum::ESTABELECIMENTO;
 
         $this->validateResult($modelo, $rateEnum);
     }
@@ -25,24 +25,24 @@ final class RateControllerTest extends TestCase
     #[Test]
     public function rate_update_food(): void
     {
-        $modelo = Food::factory()->create();
-        $rateEnum = RateMorphEnum::FOOD;
+        $modelo = Prato::factory()->create();
+        $rateEnum = RateMorphEnum::PRATO;
 
         $this->validateResult($modelo, $rateEnum);
     }
 
     public function validateResult(Model $modelo, RateMorphEnum $rateEnum): void
     {
-        $client = Client::factory()->create();
+        $client = Cliente::factory()->create();
 
         Sanctum::actingAs($client);
         $dados = [
-            'rate' => $this->faker->randomElement([1,2,3,4,5]),
+            'nota' => $this->faker->randomElement([1,2,3,4,5]),
             'model_type' => $rateEnum->description(),
             'model_id' => $modelo->id
         ];
 
-        $resposta = $this->postJson('api/rate/update', $dados);
+        $resposta = $this->postJson('api/avaliacao/update', $dados);
         $resposta->assertOk();
     }
 }

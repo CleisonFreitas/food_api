@@ -8,11 +8,12 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('rate_control', function (Blueprint $table) {
+        Schema::create('avaliacoes', function (Blueprint $table) {
             $table->id();
-            $table->float('rate')
-                ->comment('this rate will be adaptable to each table that must be evaluated');
-            $table->foreignId('client_id')->constrained('clientes');
+            $table->float('nota')
+                ->comment('Nota será entre 1 e 5.');
+            $table->text('comentario')->nullable();
+            $table->foreignId('cliente_id')->constrained('clientes');
             $table->morphs('model');
             $table->timestamps();
         });
@@ -20,6 +21,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('rate_control');
+        Schema::dropIfExists('avaliacoes');
     }
 };
