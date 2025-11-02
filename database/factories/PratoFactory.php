@@ -3,15 +3,15 @@
 namespace Database\Factories;
 
 use App\Enums\FoodCategoryEnum;
-use App\Models\Food;
-use App\Models\Restaurant;
+use App\Models\Estabelecimento;
+use App\Models\Prato;
 use App\Support\Helper;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Food>
+ * @extends Factory<Prato>
  */
-class FoodFactory extends Factory
+class PratoFactory extends Factory
 {
     public function definition(): array
     {
@@ -21,7 +21,7 @@ class FoodFactory extends Factory
             'valor' => $food['valor'],
             'categoria' => FoodCategoryEnum::getFromName($food['categoria']),
             'image' => $food['image'],
-            'estabelecimento_id' => Restaurant::factory()->lazy(),
+            'estabelecimento_id' => Estabelecimento::factory()->lazy(),
         ];
     }
 }

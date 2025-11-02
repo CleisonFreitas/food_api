@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Services\Food;
 
 use App\Facades\FilterableFacade;
-use App\Models\Food;
+use App\Models\Prato;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class FoodSearchService
@@ -16,7 +16,7 @@ class FoodSearchService
         int $limite = 10
     ): LengthAwarePaginator
     {
-        $foodModel = new Food;
+        $foodModel = new Prato;
         return FilterableFacade::search($foodModel, [
             'filters' => $filters,
             'orders' => $orders

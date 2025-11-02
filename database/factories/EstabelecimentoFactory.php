@@ -3,12 +3,13 @@
 namespace Database\Factories;
 
 use App\Enums\RestaurantSegmentEnum;
+use App\Models\Estabelecimento;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Restaurant>
+ * @extends Factory<Estabelecimento>
  */
-class RestaurantFactory extends Factory
+class EstabelecimentoFactory extends Factory
 {
     public function definition(): array
     {

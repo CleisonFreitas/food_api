@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Food\FoodRequest;
-use App\Models\Food;
+use App\Models\Prato;
 use App\Services\Food\FoodCreateService;
 use App\Services\Food\FoodDeleteService;
 use App\Services\Food\FoodSearchService;
@@ -41,23 +41,23 @@ final class FoodController
         return response()->json($food, Response::HTTP_CREATED);
     }
 
-    public function show(Food $food): JsonResponse
+    public function show(Prato $prato): JsonResponse
     {
-        return response()->json($food);
+        return response()->json($prato);
     }
     public function update(
-        Food $food,
+        Prato $prato,
         FoodRequest $request,
         FoodUpdateService $service
     ): JsonResponse
     {
-        $food = $service->execute($food, $request->validated());
+        $food = $service->execute($prato, $request->validated());
         return response()->json($food);
     }
 
-    public function destroy(Food $food, FoodDeleteService $service): JsonResponse
+    public function destroy(Prato $prato, FoodDeleteService $service): JsonResponse
     {
-        $food = $service->execute($food);
+        $food = $service->execute($prato);
         return response()->json($food);
     }
 }

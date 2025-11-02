@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Client\Auth;
 
-use App\Models\Client;
+use App\Models\Cliente;
 use App\Support\Helper;
 use Exception;
 use Illuminate\Support\Facades\Hash;
@@ -28,7 +28,7 @@ class RegisterNewClient
             'senha' => Hash::make($data['senha'])
         ];
 
-        $cliente = Client::create($finalData);
+        $cliente = Cliente::create($finalData);
         $tokenData = Helper::registerNewToken($cliente);
         return [
             'message' => 'Cadastro realizado com sucesso!',

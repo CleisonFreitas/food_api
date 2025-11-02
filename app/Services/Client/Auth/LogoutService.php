@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Services\Client\Auth;
 
-use App\Models\Client;
+use App\Models\Cliente;
 use Exception;
 
 class LogoutService
 {
-    public function execute(Client $client): void
+    public function execute(Cliente $client): void
     {
         $client->tokens()->delete();
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\Client;
+use App\Models\Cliente;
 use App\Services\Client\Auth\EmailRecoveryService;
 use App\Services\Client\Auth\LoginService;
 use App\Services\Client\Auth\LogoutService;
@@ -34,17 +34,17 @@ final readonly class ClienteAuthController
 
     public function logout(): JsonResponse
     {
-        /** @var Client */
-        $client = auth()->guard('client')->user();
-        $this->logoutService->execute($client);
+        /** @var Cliente */
+        $cliente = auth()->guard('client')->user();
+        $this->logoutService->execute($cliente);
 
-        return response()->json($client);
+        return response()->json($cliente);
     }
 
     public function sendEmailToRecoveryPassword(Request $request): JsonResponse
     {
         $dados = $request->validate([
-            'email' => ['required', Rule::exists(Client::class, 'email')]
+            'email' => ['required', Rule::exists(Cliente::class, 'email')]
         ], ['email.exists' => 'e-mail não encontrado!']);
         $this->emailRecoveryService->execute(data_get($dados, 'email'));
         return response()->json();
@@ -55,7 +55,7 @@ final readonly class ClienteAuthController
         $data = $request->validate([
             'codigo_otp' => ['required', 'string', 'size:4']
         ]);
-        /** @var Client */
+        /** @var Cliente */
         $this->verifyOtpCodeService->execute($data['codigo_otp']);
         return response()->json();
     }

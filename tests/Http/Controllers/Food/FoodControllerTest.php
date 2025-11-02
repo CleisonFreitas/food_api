@@ -4,9 +4,9 @@ namespace Tests\Http\Controllers\Food;
 
 
 use App\Enums\FoodCategoryEnum;
-use App\Models\Client;
-use App\Models\Food;
-use App\Models\Restaurant;
+use App\Models\Cliente;
+use App\Models\Estabelecimento;
+use App\Models\Prato;
 use App\Support\Helper;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Laravel\Sanctum\Sanctum;
@@ -20,10 +20,10 @@ final class FoodControllerTest extends TestCase
     #[Test]
     public function index(): void
     {
-        $client = Client::factory()->create();
+        $client = Cliente::factory()->create();
 
         Sanctum::actingAs($client);
-        $food = Food::factory()->create();
+        $food = Prato::factory()->create();
         $payload = [
             'filters' => [
                 ['column' => 'id', 'value' => $food->id],
@@ -31,11 +31,11 @@ final class FoodControllerTest extends TestCase
             ],
             'orders' => [['column' => 'id', 'order' => 'asc']],
         ];
-        $response = $this->getJson('api/food?' . http_build_query($payload));
+        $response = $this->getJson('api/prato?' . http_build_query($payload));
         $response->assertOk();
         $response->assertJsonStructure([
             'data' => [
-                0 => ['id', 'nome', 'categoria', 'image']
+                0 => ['id', 'nome', 'categoria', 'image', 'average_rate', 'count_rate']
             ]
         ]);
     }
@@ -43,9 +43,9 @@ final class FoodControllerTest extends TestCase
     #[Test]
     public function store(): void
     {
-        $client = Client::factory()->create();
+        $client = Cliente::factory()->create();
         Sanctum::actingAs($client);
-        $restaurant = Restaurant::factory()->create();
+        $restaurant = Estabelecimento::factory()->create();
         $food = $this->faker->randomElement(Helper::FoodFactory());
         $dataMapped = [
             'nome' => $food['nome'],
@@ -54,29 +54,29 @@ final class FoodControllerTest extends TestCase
             'estabelecimento_id' => $restaurant->id,
             'image' => $food['image'],
         ];
-        $response = $this->postJson('api/food', $dataMapped);
+        $response = $this->postJson('api/prato', $dataMapped);
         $response->assertCreated();
     }
 
     #[Test]
     public function show(): void
     {
-        $client = Client::factory()->create();
+        $client = Cliente::factory()->create();
 
         Sanctum::actingAs($client);
-        $food = Food::factory()->create();
-        $response = $this->getJson("api/food/$food->id");
+        $prato = Prato::factory()->create();
+        $response = $this->getJson("api/prato/$prato->id");
         $response->assertOk();
     }
 
     #[Test]
     public function update(): void
     {
-        $client = Client::factory()->create();
+        $client = Cliente::factory()->create();
 
         Sanctum::actingAs($client);
-        $restaurant = Restaurant::factory()->create();
-        $foodModel = Food::factory()->for($restaurant, 'estabelecimento')->create();
+        $restaurant = Estabelecimento::factory()->create();
+        $prato = Prato::factory()->for($restaurant, 'estabelecimento')->create();
         $food = $this->faker->randomElement(Helper::FoodFactory());
         $dataMapped = [
             'nome' => $food['nome'],
@@ -85,19 +85,19 @@ final class FoodControllerTest extends TestCase
             'estabelecimento_id' => $restaurant->id,
             'image' => $food['image'],
         ];
-        $response = $this->putJson("api/food/$foodModel->id", $dataMapped);
+        $response = $this->putJson("api/prato/$prato->id", $dataMapped);
         $response->assertOk();
     }
 
     #[Test]
     public function destroy(): void
     {
-        $client = Client::factory()->create();
+        $cliente = Cliente::factory()->create();
 
-        Sanctum::actingAs($client);
-        $food = Food::factory()->create();
-        $response = $this->deleteJson("api/food/$food->id");
+        Sanctum::actingAs($cliente);
+        $prato = Prato::factory()->create();
+        $response = $this->deleteJson("api/prato/$prato->id");
         $response->assertOk();
-        $this->assertNotNull($food->refresh()->deleted_at);
+        $this->assertNotNull($prato->refresh()->deleted_at);
     }
 }
