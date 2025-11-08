@@ -40,7 +40,7 @@ trait HandlesFilters
         foreach ($filters as $filter) {
             if (empty($filter['column'])) {
                 throw ValidationException::withMessages([
-                    'filters' => ['Each filter must have a column field.'],
+                    'filters' => ['cada filtro deve possuir um campo coluna.'],
                 ]);
             }
 
@@ -49,7 +49,7 @@ trait HandlesFilters
             // Validar em relação aos filtros predefinidos
             if (!in_array($column, $this->allowedFilters, true)) {
                 throw ValidationException::withMessages([
-                    'filters' => ["The filter '{$column}' is not allowed."],
+                    'filters' => ["O filtro '{$column}' não está habilitado."],
                 ]);
             }
         }

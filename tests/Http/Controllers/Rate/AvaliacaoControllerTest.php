@@ -39,7 +39,8 @@ final class AvaliacaoControllerTest extends TestCase
         $dados = [
             'nota' => $this->faker->randomElement([1,2,3,4,5]),
             'model_type' => $rateEnum->description(),
-            'model_id' => $modelo->id
+            'model_id' => $modelo->id,
+            'comentario' => $this->faker->sentence,
         ];
 
         $resposta = $this->postJson('api/avaliacao/update', $dados);
