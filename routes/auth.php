@@ -10,7 +10,10 @@ Route::prefix('auth')->group(function ($router) {
             $router->post('login', 'login');
             $router->post('email-recovery', 'sendEmailToRecoveryPassword');
             $router->post('verify-otp-code', 'checkingOtpCodeRecovery');
-            $router->middleware('auth:sanctum')->post('logout', 'logout');
+            $router->middleware('auth:sanctum')->group(function ($router) {
+                $router->post('logout', 'logout');
+                $router->get('me', 'me');
+            });
         });
 
     $router->controller(ClientRegisterController::class)->group(function ($router) {
