@@ -36,14 +36,20 @@ class Estabelecimento extends Model
     public function averageRate(): Attribute
     {
         return Attribute::make(
-            get: fn () => round($this->avaliacoes()->avg('nota') ?? 0, 1)
+            get: function () {
+                $this->loadMissing('avaliacoes');
+                return round($this->avaliacoes()->avg('nota') ?? 0, 1);
+            }
         );
     }
 
     public function countRate(): Attribute
     {
         return Attribute::make(
-            get: fn () => $this->avaliacoes->count() ?? 0
+            get: function () {
+                $this->loadMissing('avaliacoes');
+                return $this->avaliacoes->count() ?? 0;
+            }
         );
     }
 }

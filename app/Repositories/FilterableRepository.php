@@ -13,9 +13,8 @@ class FilterableRepository implements FilterableContract
     /**
      * @inheritDoc
      */
-    public function search(Model $modelo, array $params): Builder
+    public function search(Builder $query, array $params): Builder
     {
-        $query = $modelo->newQuery();
         // Run pipeline for filters
         $query = app(ApplyFiltersPipeline::class)->run($query, $params['filters'] ?? []);
 

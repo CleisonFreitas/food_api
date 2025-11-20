@@ -5,6 +5,9 @@ namespace App\Traits;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
+use function PHPUnit\Framework\isEmpty;
+use function PHPUnit\Framework\isString;
+
 trait HandlesFilters
 {
     /**
@@ -87,5 +90,29 @@ trait HandlesFilters
         }
 
         return $orders;
+    }
+
+    /**
+     * Validar a estrutura do texto enviado
+     * @param Request $request
+     * @return string
+     */
+    protected function sanitizeSearch(Request $request): string
+    {
+        $search = $request->input('pesquisa');
+
+        // Accept: null, empty string, string
+        if (is_null($search) || $search === '') {
+            return '';
+        }
+
+        // Reject anything that is NOT a string
+        if (!is_string($search)) {
+            throw ValidationException::withMessages([
+                'pesquisa' => ['Insira um texto válido no campo pesquisa.'],
+            ]);
+        }
+
+        return $search;
     }
 }
