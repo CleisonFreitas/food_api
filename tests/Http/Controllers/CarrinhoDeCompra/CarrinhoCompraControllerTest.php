@@ -19,10 +19,10 @@ final class CarrinhoCompraControllerTest extends TestCase
     public function show(): void
     {
         $cliente = Cliente::factory()->create();
-        CarrinhoCompra::factory()->for($cliente)->Create();
+        CarrinhoCompra::factory()->for($cliente)->create();
         Sanctum::actingAs($cliente);
 
-        $resposta = $this->getJson('api/v1/carrinho-de-compra');
+        $resposta = $this->getJson('api/carrinho');
         $resposta->assertOk();
     }
 }

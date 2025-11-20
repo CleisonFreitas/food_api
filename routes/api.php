@@ -15,6 +15,11 @@ Route::middleware('auth:sanctum')->group(function () {
             $router->put('/{prato}', 'update');
             $router->delete('/{prato}', 'destroy');
         });
+    Route::prefix('carrinho')
+    ->controller(CarrinhoCompraController::class)
+    ->group(function ($router) {
+        $router->get('/', 'show');
+    });
 });
 
 Route::prefix('avaliacao')
@@ -23,10 +28,6 @@ Route::prefix('avaliacao')
         $router->match(['POST', 'PUT'], 'update', 'update');
     });
 
-Route::prefix('carrinho')
-    ->controller(CarrinhoCompraController::class)
-    ->group(function ($router) {
-        $router->get('/', 'show');
-    });
+
 
 require __DIR__ . '/auth.php';

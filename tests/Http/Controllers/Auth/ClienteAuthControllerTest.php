@@ -18,10 +18,10 @@ final class ClienteAuthControllerTest extends TestCase
     public function login(): void
     {
         $email = $this->faker->email;
-        $senha = Hash::make($this->faker->password);
+        $senha = $this->faker->password;
         Cliente::factory()->create([
             'email' => $email,
-            'senha' => $senha,
+            'senha' => Hash::make($senha),
         ]);
         $dados = [
             'email' => $email,

@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 use App\Enums\StatusCarrinhoCompraEnun;
 use App\Models\Cliente;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 final class CarrinhoCompraController
 {
     public function show(): JsonResponse
     {
-        /** @var Cliente $cliente */
-        $cliente = auth()->guard('cliente')->user();
+        /** @var Cliente */
+        $cliente = Auth::user();
         $carrinho = $cliente
             ->carrinhosDeCompras()
             ->where('status', StatusCarrinhoCompraEnun::PENDENTE)
