@@ -41,6 +41,14 @@ final readonly class ClienteAuthController
         return response()->json($cliente);
     }
 
+    public function me(Request $request): JsonResponse
+    {
+        return response()->json([
+            'success' => true,
+            'user' => $request->user(),
+        ]);
+    }
+
     public function sendEmailToRecoveryPassword(Request $request): JsonResponse
     {
         $dados = $request->validate([

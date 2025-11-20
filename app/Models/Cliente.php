@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -23,4 +24,9 @@ class Cliente extends Authenticatable
     protected $hidden = [
         'senha',
     ];
+
+    public function carrinhosDeCompras(): HasMany
+    {
+        return $this->hasMany(CarrinhoCompra::class);
+    }
 }
