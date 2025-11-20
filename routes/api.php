@@ -16,10 +16,10 @@ Route::middleware('auth:sanctum')->group(function () {
             $router->delete('/{prato}', 'destroy');
         });
     Route::prefix('carrinho')
-    ->controller(CarrinhoCompraController::class)
-    ->group(function ($router) {
-        $router->get('/', 'show');
-    });
+        ->controller(CarrinhoCompraController::class)
+        ->group(function ($router) {
+            $router->get('/', 'show');
+        });
 });
 
 Route::prefix('avaliacao')
