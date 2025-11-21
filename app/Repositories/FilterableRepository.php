@@ -6,7 +6,6 @@ use App\Contracts\FilterableContract;
 use App\Pipelines\ApplyFiltersPipeline;
 use App\Pipelines\ApplyOrdersPipeline;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 
 class FilterableRepository implements FilterableContract
 {

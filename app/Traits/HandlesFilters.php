@@ -5,9 +5,6 @@ namespace App\Traits;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
-use function PHPUnit\Framework\isEmpty;
-use function PHPUnit\Framework\isString;
-
 trait HandlesFilters
 {
     /**
