@@ -13,13 +13,17 @@ class FoodSearchService
     public function execute(
         array $filters,
         array $orders,
-        int $limite = 10
+        int $limite = 10,
+        string $search = '',
     ): LengthAwarePaginator
     {
-        $foodModel = new Prato;
-        return FilterableFacade::search($foodModel, [
+        $query = FilterableFacade::search(Prato::query(), [
             'filters' => $filters,
             'orders' => $orders
-        ])->paginate($limite);
+        ]);
+        if (!empty($search)) {
+            $query->pesquisar($search);
+        }
+        return $query->paginate($limite);
     }
 }

@@ -27,8 +27,9 @@ final class FoodController
     {
         $filters = $this->extractFiltersFrom($request);
         $orders  = $this->extractOrdersFrom($request);
+        $search = $this->sanitizeSearch($request);
 
-        $foods = $this->searchservice->execute($filters, $orders);
+        $foods = $this->searchservice->execute(filters: $filters, orders: $orders, search: $search);
         return response()->json($foods);
     }
 
