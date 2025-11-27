@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Client;
+use App\Models\Cliente;
 use App\Models\User;
 
 return [
@@ -43,9 +43,9 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'client' => [
+        'clientes' => [
             'driver' => 'sanctum',
-            'provider' => 'clients',
+            'provider' => 'clientes',
         ],
     ],
 
@@ -72,9 +72,9 @@ return [
             'model' => env('AUTH_MODEL', User::class),
         ],
 
-        'clients' => [
+        'clientes' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', Client::class),
+            'model' => env('AUTH_MODEL', Cliente::class),
         ],
 
         // 'users' => [
@@ -109,8 +109,8 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
-        'clients' => [
-            'provider' => 'clients',
+        'clientes' => [
+            'provider' => 'clientes',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,

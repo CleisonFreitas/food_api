@@ -23,9 +23,9 @@ final class FoodSearchServiceTest extends TestCase
             ['column' => 'nome', 'value' => $pratoParaBuscar->nome]
         ];
         $pratoEncontrado = app(FoodSearchService::class)->execute(filters: $filters, orders: []);
-        $prato = $pratoEncontrado->first()->toArray();
-        $this->assertEquals($pratoParaBuscar->nome, $prato['nome']);
-        $this->assertEquals($pratoParaBuscar->categoria->value, $prato['categoria']);
+        $prato = $pratoEncontrado->items()[0];
+        $this->assertEquals($pratoParaBuscar->nome, actual: $prato['nome']);
+        $this->assertEquals($pratoParaBuscar->categoria, $prato['categoria']);
         $this->assertEquals($pratoParaBuscar->image, $prato['image']);
     }
 
@@ -37,9 +37,9 @@ final class FoodSearchServiceTest extends TestCase
             ['column' => 'id', 'order' => 'desc'],
         ];
         $pratoEncontrado = app(FoodSearchService::class)->execute(filters: [], orders: $orders);
-        $prato = $pratoEncontrado->first()->toArray();
+        $prato = $pratoEncontrado->items()[0];
         $this->assertEquals($pratoParaBuscar->nome, $prato['nome']);
-        $this->assertEquals($pratoParaBuscar->categoria->value, $prato['categoria']);
+        $this->assertEquals($pratoParaBuscar->categoria, $prato['categoria']);
         $this->assertEquals($pratoParaBuscar->image, $prato['image']);
     }
 
@@ -55,7 +55,7 @@ final class FoodSearchServiceTest extends TestCase
             orders: [],
             search: $estabelecimento->nome
         );
-        $dados = $pratoEncontrado->first()->toArray();
+        $dados = $pratoEncontrado->items()[0];
         $this->assertEquals($prato->id, $dados['id']);
         $this->assertEquals($prato->nome, $dados['nome']);
     }

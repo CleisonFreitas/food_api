@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Food\FoodRequest;
+use App\Http\Resources\PratoResource;
 use App\Models\Prato;
 use App\Services\Food\FoodCreateService;
 use App\Services\Food\FoodDeleteService;
@@ -29,8 +30,8 @@ final class FoodController
         $orders  = $this->extractOrdersFrom($request);
         $search = $this->sanitizeSearch($request);
 
-        $foods = $this->searchservice->execute(filters: $filters, orders: $orders, search: $search);
-        return response()->json($foods);
+        $pratos = $this->searchservice->execute(filters: $filters, orders: $orders, search: $search);
+        return response()->json($pratos);
     }
 
     public function store(

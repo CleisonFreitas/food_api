@@ -9,7 +9,7 @@ class Helper
 {
     public static function registerNewToken(Cliente $cliente): array
     {
-        $chaveToken = Str::snake($cliente->nome) . now()->format('d_m_Y');
+        $chaveToken = Str::snake($cliente->nome) . now()->format('d_m_Y_h_i_s');
         $token = $cliente->createToken(
             $chaveToken,
             ['*'],

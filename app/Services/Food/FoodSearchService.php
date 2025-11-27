@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services\Food;
 
 use App\Facades\FilterableFacade;
+use App\Http\Resources\PratoResource;
 use App\Models\Prato;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -24,6 +25,8 @@ class FoodSearchService
         if (!empty($search)) {
             $query->pesquisar($search);
         }
-        return $query->paginate($limite);
+        $paginacao = $query->paginate($limite);
+
+        return $paginacao->through(fn($item) => new PratoResource($item));
     }
 }

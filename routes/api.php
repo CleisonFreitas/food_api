@@ -20,14 +20,12 @@ Route::middleware('auth:sanctum')->group(function () {
         ->group(function ($router) {
             $router->get('/', 'show');
         });
+
+    Route::prefix('avaliacao')
+        ->controller(AvaliacaoController::class)
+        ->group(function ($router) {
+            $router->match(['POST', 'PUT'], 'update', 'update');
+        });
 });
-
-Route::prefix('avaliacao')
-    ->controller(AvaliacaoController::class)
-    ->group(function ($router) {
-        $router->match(['POST', 'PUT'], 'update', 'update');
-    });
-
-
 
 require __DIR__ . '/auth.php';

@@ -11,6 +11,7 @@ use App\Services\Client\Auth\LogoutService;
 use App\Services\Client\Auth\VerifyOtpCodeService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 final readonly class ClienteAuthController
@@ -35,7 +36,7 @@ final readonly class ClienteAuthController
     public function logout(): JsonResponse
     {
         /** @var Cliente */
-        $cliente = auth()->guard('client')->user();
+        $cliente = Auth::user();
         $this->logoutService->execute($cliente);
 
         return response()->json($cliente);
